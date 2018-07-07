@@ -8,8 +8,8 @@ $ npm run grunt
 
 ## License
 
-MIT
+[MIT](LICENSE)
 
 ## Authors
 
-Fabian Enos
+[Fabian Enos](https://fabianenos.com/)
