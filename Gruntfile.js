@@ -53,7 +53,13 @@ module.exports = function (grunt) {
                 src: ['**/*'],
                 dest: 'build/images/'
             },
-        }
+        },
+        // Delete the temporary files which we generated
+        clean: {
+            build: [
+                'build/js/build.js',
+            ],
+        },
     });
 
     // Register the tasks we need
@@ -61,7 +67,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     // Define the default task and the order in which you want the tasks to run
-    grunt.registerTask('default', ['copy', 'concat', 'uglify', 'compress']);
+    grunt.registerTask('default', ['copy', 'concat', 'uglify', 'compress', 'clean']);
 }
