@@ -1,18 +1,20 @@
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        // Concatenate any type of files 
+        // Concatenate any type of files
         concat: {
             css: {
                 src: [
-                    'node_modules/bootstrap/dist/css/bootstrap.min.css'
+                    'node_modules/bootstrap/dist/css/bootstrap.min.css',
+                    'cssfiles/*'
                 ],
                 dest: 'build/css/build.css',
             },
             js: {
                 src: [
                     'node_modules/jquery/dist/jquery.min.js',
-                    'node_modules/bootstrap/dist/js/bootstrap.min.js'
+                    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+                    'jsfiles/*'
                 ],
                 dest: 'build/js/build.js',
             },
@@ -25,7 +27,8 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['node_modules/bootstrap/fonts/*'],
+                        src: ['node_modules/bootstrap/fonts/*',
+                        'fonts/*'],
                         dest: 'build/fonts/',
                         filter: 'isFile'
                     },
@@ -60,6 +63,17 @@ module.exports = function (grunt) {
                 'build/js/build.js',
             ],
         },
+        cssmin: {
+              target: {
+                files: [{
+                  expand: true,
+                  cwd: 'build/css',
+                  src: ['*.css'],
+                  dest: 'build/css',
+                  ext: '..min.css'
+              }]
+          }
+      }
     });
 
     // Register the tasks we need
@@ -68,7 +82,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     // Define the default task and the order in which you want the tasks to run
-    grunt.registerTask('default', ['copy', 'concat', 'uglify', 'compress', 'clean']);
+    grunt.registerTask('default', ['copy', 'concat', 'uglify', 'compress', 'clean','cssmin']);
 }
